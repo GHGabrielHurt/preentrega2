@@ -9,13 +9,13 @@ const productos = [
     { 
         titulo: "Zapatilla Adidas", 
         descripcion: "Zapatillas Own the Game 3", 
-        imagen: "./assets/Zapatilla_marron.jpg", 
+        imagen: "./assets/zapatilla_marron.jpg", 
         precio: "200.000" 
     },
     { 
         titulo: "Zapatilla Armour", 
         descripcion: "Zapatillas de Running Supernova Rise", 
-        imagen: "./assets/Zapatilla_negra.jpg", 
+        imagen: "./assets/zapatilla_negra.jpg", 
         precio: "250.000" 
     }
     
