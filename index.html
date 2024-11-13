@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galería Dinámica</title>
+    <link rel="stylesheet" href="./css/estilos.css">
+</head>
+<body>
+    <header class="container_header">
+        <h1>Zapateria</h1>
+    </header>
+    <main>
+            <!-- Carrito de Compras -->
+    <div class="cart">
+        <h2>Carrito de Compras</h2>
+        <ul class="cart-items"></ul>
+        <p class="total-price">Total: $0.00</p>
+        <button class="checkout-button" id="finalizar-compra">Finalizar Compra</button>
+        
+    </div>
+    <!-- Popup de "Gracias por tu compra" -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span id="close-popup" class="close-btn">&times;</span>
+        <h2>¡Gracias por tu compra!</h2>
+    </div>
+</div>
+        <!-- Galeria de Productos-->
+        <div class="container"></div>
+    </main>
+   
+
+    <script src="galeria.js"></script>
+</body>
+</html>
