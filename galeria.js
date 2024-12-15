@@ -1,6 +1,21 @@
 // Arrays para almacenar
 let productos = [];
 let carrito = [];
+// Selecciona el contenedor del header
+const header = document.querySelector('.container_header');
+
+// Crear el contenido dinámico del header
+header.innerHTML = `
+  <div class="header-logo">
+    <a href="index.html">
+      <img src="./assets/logo_zapateria.jpeg" alt="Logo Zapatería">
+    </a>
+  </div>
+  <div class="header-title">
+    <h1>Corre y Dile</h1>
+  </div>
+`;
+
 
 // Función para cargar los productos desde un archivo JSON
 async function cargarProductos() {
@@ -239,4 +254,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+// Seleccionar el footer por su clase
+const footer = document.querySelector('.container_footer');
+
+// Crear el contenido dinámico del footer
+const footerContent = `
+    <p>&copy; 2024 Zapatería - Diseñado por coderCamp</p>
+    <p>Contacto: <a href="mailto:info@correydile.com">info@correydile.com</a></p>
+`;
+
+// Agregar el contenido al footer
+footer.innerHTML = footerContent;
 

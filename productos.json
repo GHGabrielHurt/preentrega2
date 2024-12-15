@@ -18,37 +18,25 @@
         "precio": "250.000" 
     },
      { 
-        "titulo": "d Armour", 
-        "descripcion": "sd de Running Supernova Rise", 
-        "imagen": "./assets/zapatilla_negra.jpg", 
-        "precio": "250.000" 
+        "titulo": "Zapatilla Nike", 
+        "descripcion": "Zapatillas de Running adidas", 
+        "imagen": "./assets/zapatilla_gris.jpg", 
+        "precio": "450.000" 
     }
     ,
     { 
-        "titulo": "Zapatilla Adidas", 
-        "descripcion": "Zapatillas Own the Game 3", 
-        "imagen": "./assets/zapatilla_marron.jpg", 
-        "precio": "200.000" 
-    },
-    { 
-        "titulo": "Zapatilla Armour", 
-        "descripcion": "Zapatillas de Running Supernova Rise", 
-        "imagen": "./assets/zapatilla_negra.jpg", 
-        "precio": "250.000" 
+        "titulo": "Sandalias", 
+        "descripcion": "Sandalias color bordo", 
+        "imagen": "./assets/sandalias.jpg", 
+        "precio": "230.000" 
     },
      { 
-        "titulo": "d Armour", 
-        "descripcion": "sd de Running Supernova Rise", 
-        "imagen": "./assets/zapatilla_negra.jpg", 
-        "precio": "250.000" 
+        "titulo": "zapatilla botas Nike",
+        "descripcion": "Zapatillas tipo botas color gris y amarillo", 
+        "imagen": "./assets/zapatilla_nike.jpg", 
+        "precio": "350.000" 
     }
     ,
-    { 
-        "titulo": "Zapatilla Adidas", 
-        "descripcion": "Zapatillas Own the Game 3", 
-        "imagen": "./assets/zapatilla_marron.jpg", 
-        "precio": "200.000" 
-    },
     { 
         "titulo": "Zapatilla Armour", 
         "descripcion": "Zapatillas de Running Supernova Rise", 

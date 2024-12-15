@@ -121,6 +121,65 @@ justify-content: center;
     background-color: #c0392b;
 }
 
+/* Header general */
+.container_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #000;
+    padding: 10px 20px;
+    color: white;
+    position: relative;
+}
 
+/* Logotipo dentro de un círculo */
+.header-logo {
+    background-color: #fff; /* Color de fondo del círculo */
+    padding: 10px; /* Tamaño del círculo */
+    border-radius: 50%; /* Hace que el contorno sea circular */
+    display: inline-block;
+}
+
+.header-logo img {
+    height: 40px; /* Tamaño del logotipo dentro del círculo */
+    width: auto;
+}
+
+/* Título centrado */
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-title h1 {
+    margin: 0;
+    font-size: 1.8rem;
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+
+/* Estilo para el footer */
+.container_footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px 20px;
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    border-top: 2px solid #4CAF50;
+}
+
+.container_footer a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container_footer a:hover {
+    text-decoration: underline;
+}
 
 
