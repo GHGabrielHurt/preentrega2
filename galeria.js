@@ -1,36 +1,84 @@
-// Arrays de productos
-const productos = [
-    { 
-        titulo: "Zapatilla Topper", 
-        descripcion: "Zapatillas para Trail Running Terrex Agravic Speed", 
-        imagen: "./assets/zapatilla_azul.jpg", 
-        precio: "180.000" 
-    },
-    { 
-        titulo: "Zapatilla Adidas", 
-        descripcion: "Zapatillas Own the Game 3", 
-        imagen: "./assets/zapatilla_marron.jpg", 
-        precio: "200.000" 
-    },
-    { 
-        titulo: "Zapatilla Armour", 
-        descripcion: "Zapatillas de Running Supernova Rise", 
-        imagen: "./assets/zapatilla_negra.jpg", 
-        precio: "250.000" 
+// Arrays para almacenar
+let productos = [];
+let carrito = [];
+
+// Función para cargar los productos desde un archivo JSON
+async function cargarProductos() {
+    try {
+        const response = await fetch('./productos.json'); // Ruta del archivo JSON
+        if (!response.ok) {
+            throw new Error('Error al cargar los productos');
+        }
+        productos = await response.json(); // Asignar datos a la variable productos
+        productos.forEach(producto => crearTarjeta(producto)); // Crear las tarjetas
+    } catch (error) {
+        console.error('Error al cargar productos:', error);
     }
+}
+
+
+// Llamar a la función para crear el carrito al cargar la página
+function crearCarrito() {
+    // Crear el contenedor principal del carrito
+    const cart = document.createElement('div');
+    cart.classList.add('cart');
+
+    // Crear el título del carrito
+    const titulo = document.createElement('h2');
+    titulo.textContent = 'Carrito de Compras';
+
+    // Crear la lista de items del carrito
+    const cartItems = document.createElement('ul');
+    cartItems.classList.add('cart-items');
+
+    // Crear el elemento del precio total
+    const totalPrice = document.createElement('p');
+    totalPrice.classList.add('total-price');
+    totalPrice.textContent = 'Total: $0.00';
+
+    // Crear el botón de finalizar compra
+    const checkoutButton = document.createElement('button');
+    checkoutButton.classList.add('checkout-button');
+    checkoutButton.id = 'finalizar-compra';
+    checkoutButton.textContent = 'Finalizar Compra';
+
+    // Añadir los elementos al contenedor del carrito
+    cart.appendChild(titulo);
+    cart.appendChild(cartItems);
+    cart.appendChild(totalPrice);
+    cart.appendChild(checkoutButton);
+
+    // Agregar el carrito al cuerpo del documento o a un contenedor específico
+    document.body.appendChild(cart);
+
+        // Agregar el evento al botón de finalizar compra
+        checkoutButton.addEventListener('click', function() {
+            // Aquí puedes colocar la lógica que quieras al hacer clic en finalizar compra
+            // Ejemplo: Vaciar el carrito, mostrar un mensaje o redirigir a una página
     
-];
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Compra finalizada con éxito!",
+                showConfirmButton: false,
+                timer: 1500
+            });
+    
+            // Lógica para vaciar el carrito y actualizar la interfaz
+            carrito = [];  // Vaciar el carrito
+            localStorage.removeItem('carrito');  // Eliminar el carrito de localStorage
+            actualizarCarrito();  // Actualizar la vista del carrito
+        });
+    }
+
+// Llamar a la función para crear el carrito cuando se carga la página
+document.addEventListener('DOMContentLoaded', () => {
+    crearCarrito();  // Crear el carrito de compras
+});
+
 
 // Selecciona el contenedor donde se agregarán las tarjetas
 const container = document.querySelector('.container');
-const cartItemsList = document.querySelector('.cart-items');
-const totalPriceElement = document.querySelector('.total-price');
-const btnFinalizarCompra = document.getElementById('finalizar-compra');
-const popup = document.getElementById('popup');
-const closePopup = document.getElementById('close-popup');
-
-// Arrays para almacenar los productos en el carrito
-let carrito = [];
 
 // Función para crear una tarjeta
 function crearTarjeta(producto) {
@@ -103,11 +151,17 @@ function agregarAlCarrito(producto) {
         productoExistente.cantidad += 1;
     } else {
         // Si el producto no existe, agregarlo al carrito con cantidad 1
-        producto.cantidad = 1; // Agregar la cantidad por defecto
+        producto.cantidad = 1; 
         carrito.push(producto);
     }
-
-   
+ 
+    Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Nuevo producto en el Carrito",
+        showConfirmButton: false,
+        timer: 1500
+      });
     guardarCarrito();  // Guardar el carrito actualizado en localStorage
     actualizarCarrito(); // Actualizar la vista del carrito
 
@@ -125,6 +179,12 @@ function reducirCantidad(producto) {
             carrito = carrito.filter(item => item.titulo !== producto.titulo);
         }
     }
+    Swal.fire({
+        icon: "error",
+        title: "Producto eliminado",
+        text: "Usted a eliminado un producto del carrito",
+        
+      });
     guardarCarrito();
     actualizarCarrito(); // Actualizar la vista del carrito
     
@@ -132,56 +192,51 @@ function reducirCantidad(producto) {
 
 // Función para actualizar la vista del carrito
 function actualizarCarrito() {
-    // Limpiar la lista actual del carrito
-    cartItemsList.innerHTML = '';
+  // Limpiar la lista actual del carrito
+  const cartItemsList = document.querySelector('.cart-items');
+  if (!cartItemsList) return; // Si no existe la lista, no hacemos nada
 
-    // Agregar los productos del carrito a la lista
-    let total = 0;
-    carrito.forEach(producto => {
-        const li = document.createElement('li');
-        li.textContent = `${producto.titulo} - $${(parseFloat(producto.precio) * producto.cantidad).toFixed(3)} (Cantidad: ${producto.cantidad})`;
-        
-        // Crear el botón "menos" para reducir la cantidad
-        const btnMenos = document.createElement('button');
-        btnMenos.textContent = '-';
-        btnMenos.addEventListener('click', () => reducirCantidad(producto));
+  cartItemsList.innerHTML = '';  // Limpiar los elementos actuales
 
-        // Crear el botón "más" para agregar más cantidad
-        const btnMas = document.createElement('button');
-        btnMas.textContent = '+';
-        btnMas.addEventListener('click', () => agregarAlCarrito(producto));
+  let total = 0;
 
-         // Añadir los botones a la lista de carrito
-         li.appendChild(btnMenos);
-         li.appendChild(btnMas);
-         cartItemsList.appendChild(li);
-         total += parseFloat(producto.precio) * producto.cantidad;  // Sumar el total de cada producto según su cantidad
-     });
+  carrito.forEach(producto => {
+      const li = document.createElement('li');
+      li.textContent = `${producto.titulo} - $${(parseFloat(producto.precio)).toFixed(3)} (Cantidad: ${producto.cantidad})`;
 
-    // Actualizar el precio total
-    totalPriceElement.textContent = `Total: $${total.toFixed(3)}`;
+      // Crear el botón "menos" para reducir la cantidad
+      const btnMenos = document.createElement('button');
+      btnMenos.textContent = '-';
+      btnMenos.classList.add('btn-menos');
+      btnMenos.addEventListener('click', () => reducirCantidad(producto));
+
+      // Crear el botón "más" para agregar más cantidad
+      const btnMas = document.createElement('button');
+      btnMas.textContent = '+';
+      btnMas.classList.add('btn-mas');
+      btnMas.addEventListener('click', () => agregarAlCarrito(producto));
+
+      li.prepend(btnMenos); // Agregar el botón "menos" al inicio
+      li.appendChild(btnMas); // Agregar el botón "más" al final
+
+      cartItemsList.appendChild(li); // Agregar el producto a la lista
+
+      total += parseFloat(producto.precio) * producto.cantidad; // Calcular el total
+  });
+
+  // Actualizar el precio total
+  const totalPriceElement = document.querySelector('.total-price');
+  if (totalPriceElement) {
+      totalPriceElement.textContent = `Total: $${total.toFixed(3)}`;
+  }
 }
 
-
-// Crear y agregar cada tarjeta a partir del Array de productos
-productos.forEach(producto => crearTarjeta(producto));
-
-
-// Mostrar el popup al finalizar compra
-btnFinalizarCompra.addEventListener('click', function() {
-    carrito = [];  // Vaciar el carrito
-    localStorage.removeItem('carrito');  // Eliminar el carrito de localStorage
-    actualizarCarrito();  // Actualizar la vista del carrito
-    popup.style.display = 'flex';  // Mostrar el popup
+// Llamar a cargarProductos al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+    cargarProductos();
+    cargarCarrito();
 });
 
-// Cerrar el popup cuando se hace clic en el botón de cerrar
-closePopup.addEventListener('click', function() {
-    popup.style.display = 'none';  // Ocultar el popup
-         setTimeout(function() {
-        location.reload();  // Recarga la página
-    }, 800);  // Espera segundos antes de recargar
-});
-// Cargar el carrito cuando la página se carga
-cargarCarrito();
+
+
 
